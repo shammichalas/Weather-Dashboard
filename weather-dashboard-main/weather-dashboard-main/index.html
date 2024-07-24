@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/sun.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/moon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/search.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- CONTAINER LEFT START -->
+      <div class="container-left">
+        <!-- Panel Top Start -->
+        <div class="panel-top">
+          <div class="date">
+            <h1 id="time" class="text-color"></h1>
+            <h2 id="full-date" class="text-color"></h2>
+          </div>
+          <div class="dark-mode-toggle">
+            <div class="light"><i class="gg-sun" style="color: white"></i></div>
+            <div class="dark">
+              <i class="gg-moon" style="color: rgb(215, 224, 234)"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Panel Top End -->
+
+        <!-- Panel Greeting Start -->
+        <div class="panel-greeting">
+          <h2 class="user-greeting">
+            <i class="gg-sun text-color"></i>
+            <h2 class="text-color time-greeting"></h2>
+          </h2>
+        </div>
+        <!-- Panel Greeting End -->
+
+        <!-- Panel Main Start -->
+        <div class="panel-main">
+          <div class="card sun">
+            <h3 class="panel-main-day panel-main-text">Sun</h3>
+            <h3 class="panel-main-temp panel-main-text"></h3>
+          </div>
+          <div class="card mon">
+            <h3 class="panel-main-day">Mon</h3>
+            <h3 class="panel-main-temp"></h3>
+          </div>
+          <div class="card tue">
+            <h3 class="panel-main-day">Tue</h3>
+            <h3 class="panel-main-temp"></h3>
+          </div>
+          <div class="card wed">
+            <h3 class="panel-main-day">Wed</h3>
+            <h3 class="panel-main-temp"></h3>
+          </div>
+          <div class="card thu">
+            <h3 class="panel-main-day">Thu</h3>
+            <h3 class="panel-main-temp"></h3>
+          </div>
+          <div class="card fri">
+            <h3 class="panel-main-day">Fri</h3>
+            <h3 class="panel-main-temp"></h3>
+          </div>
+          <div class="card sat">
+            <h3 class="panel-main-day">Sat</h3>
+            <h3 class="panel-main-temp"></h3>
+          </div>
+        </div>
+        <!-- Panel Main End -->
+
+        <div class="panel-bottom">
+          <div class="panel-bottom-left">
+            <h3 class="panel-bottom-left-title text-color">
+              How's the temperature today?
+            </h3>
+            <div>
+              <canvas id="myChart" width="540" height="340"> </canvas>
+            </div>
+          </div>
+          <div class="panel-bottom-right">
+            <div class="air-quality">
+              <div class="air-quality-title">
+                <h3></h3>
+              </div>
+              <div class="air-quality-main">
+                <h3 class="air-quality-deg">390</h3>
+                <h3 class="air-quality-main-title">Air Quality Index</h3>
+
+                <h3 class="air-quality-deg-info">Good</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTAINER LEFT END -->
+
+      <!-- CONTAINER RIGHT START -->
+      <div class="container-right">
+        <!-- Search Start -->
+        <div class="search">
+          <div class="search-input-div">
+            <input type="text" placeholder="Search..." class="search-input" />
+          </div>
+          <div class="search-button-div">
+            <button class="search-button">
+              <i class="gg-search" style="color: orange"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Search End -->
+        <div class="daily-panel-main" id="cityOne">
+          <h5 class="city cityName"></h5>
+          <h5 class="temp cityTemp"></h5>
+          <h5 class="temp-name cityTempName"></h5>
+          <div class="temp-info">
+            <div class="wind">
+              <i class="fa-solid fa-wind" style="color: #ffffff"></i>
+              <h3>Wind</h3>
+              <span>|</span>
+              <p class="wind-info"></p>
+            </div>
+            <div class="hum">
+              <i class="fa-solid fa-droplet" style="color: #ffffff"></i>
+              <h3>Hum</h3>
+              <span>|</span>
+              <p class="hum-info"></p>
+            </div>
+          </div>
+        </div>
+        <div class="daily-panel-bottom" id="citiesTwo">
+          <div class="cities-weather-info">
+            <div class="cities-wind">
+              <i class="fa-solid fa-wind" style="color: #2c2b53"></i>
+              <h3>Wind</h3>
+              <span>|</span>
+              <p class="cities-wind-info">15 km/h</p>
+            </div>
+            <div class="cities-hum">
+              <i class="fa-solid fa-droplet" style="color: #2c2b53"></i>
+              <h3 style="padding-left: 3.6px">Hum</h3>
+              <span>|</span>
+              <p class="cities-hum-info">28 %</p>
+            </div>
+          </div>
+          <div class="cities-weather-temp">
+            <h3 class="cities-name cityName">Tokyo</h3>
+            <p class="cities-temp cityTempName">26°</p>
+          </div>
+        </div>
+        <div class="daily-panel-bottom2" id="citiesThree">
+          <div class="cities-weather-info2">
+            <div class="cities-wind2">
+              <i class="fa-solid fa-wind" style="color: #2c2b53"></i>
+              <h3>Wind</h3>
+              <span>|</span>
+              <p class="cities-wind-info2">17 km/h</p>
+            </div>
+            <div class="cities-hum2">
+              <i class="fa-solid fa-droplet" style="color: #2c2b53"></i>
+              <h3 style="padding-left: 3.6px">Hum</h3>
+              <span>|</span>
+              <p class="cities-hum-info2">25 %</p>
+            </div>
+          </div>
+          <div class="cities-weather-temp2">
+            <h3 class="cities-name2 cityName">New York</h3>
+            <p class="cities-temp2 cityTempName">32°</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CONTAINER RIGHT END -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      function getPublicIp() {
+        fetch("https://geolocation-db.com/json/", {
+          method: "GET",
+          headers: {},
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            currentCity = data.city;
+            checkWeather(data.city);
+            checkWeeklyWeather(data.city);
+            checkAirQuality(data.city);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+      function setWeatherBackground(imageUrl) {
+        weatherBg.style.background = `url(${imageUrl})`;
+        weatherBg.style.backgroundSize = "cover";
+        weatherBg.style.backgroundPosition = "center";
+      }
+
+      async function checkAirQuality(cityName) {
+        const cities = [
+          { country: "GB", name: "London", lat: "51.509865", lon: "-0.118092" },
+          {
+            country: "US",
+            name: "New York",
+            lat: "40.712776",
+            lon: "-74.005974",
+          },
+          { country: "TR", name: "Istanbul", lat: "41.0082", lon: "28.9784" },
+          { country: "TR", name: "Ankara", lat: "39.9334", lon: "32.8597" },
+          { country: "TR", name: "Bursa", lat: "40.1824", lon: "29.0670" },
+          { country: "TR", name: "Balıkesir", lat: "39.6484", lon: "27.8826" },
+        ];
+
+        const currentDate = new Date();
+        const startDate = Math.floor(
+          (currentDate.getTime() - 7 * 24 * 60 * 60 * 1000) / 1000
+        );
+        const endDate = Math.floor(currentDate.getTime() / 1000);
+
+        const city = cities.find((c) => c.name === cityName);
+        if (!city) {
+          console.error(`Belirtilen isimde bir şehir bulunamadı: ${cityName}`);
+          return;
+        }
+
+        try {
+          const apiUrl = `https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${city.lat}&lon=${city.lon}&start=${startDate}&end=${endDate}&appid=4f9703a416559d4cb74368fc8f33c38f`;
+
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+
+          console.log(`${city.name} için hava kirliliği verileri:`, data);
+
+          document.querySelector(
+            ".air-quality-title h3"
+          ).innerHTML = `${city.name}`;
+
+          const aqi = data.list[0].main.aqi;
+          document.querySelector(".air-quality-deg").innerHTML = aqi;
+
+          if (aqi >= 0 && aqi <= 50) {
+            document.querySelector(".air-quality-deg-info").innerHTML = "Good";
+          } else if (aqi >= 51 && aqi <= 100) {
+            document.querySelector(".air-quality-deg-info").innerHTML =
+              "Moderate";
+          } else if (aqi >= 101 && aqi <= 150) {
+            document.querySelector(".air-quality-deg-info").innerHTML =
+              "Unhealthy for Sensitive Groups";
+          } else if (aqi >= 151 && aqi <= 200) {
+            document.querySelector(".air-quality-deg-info").innerHTML =
+              "Unhealthy";
+          } else if (aqi >= 201 && aqi <= 300) {
+            document.querySelector(".air-quality-deg-info").innerHTML =
+              "Very Unhealthy";
+          } else if (aqi >= 301 && aqi <= 500) {
+            document.querySelector(".air-quality-deg-info").innerHTML =
+              "Hazardous";
+          } else {
+            console.log("Invalid AQI value");
+          }
+        } catch (error) {
+          console.error(
+            `${city.name} için hava kirliliği verileri alınamadı. Hata:`,
+            error
+          );
+        }
+      }
+
+      function checkWeeklyWeather(cityName) {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?units=metric&appid=6d7c198154b55976dc56615ff3564971&q=${cityName}`,
+          {
+            method: "GET",
+            headers: {},
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const daysOfWeek = [
+              "Sun",
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat",
+            ];
+            const today = new Date().getDay();
+            const panels = document.querySelector(".panel-main").children;
+
+            for (let i = 0; i < 7; i++) {
+              const dayData = data.list[i];
+              const dayOfWeekIndex = (today + i) % 7;
+              const dayOfWeek = daysOfWeek[dayOfWeekIndex];
+
+              const dayPanelDay = panels[i].querySelector(".panel-main-day");
+              const dayPanelTemp = panels[i].querySelector(".panel-main-temp");
+
+              if (true) {
+                dayPanelDay.innerHTML = dayOfWeek;
+                dayPanelTemp.innerHTML = Math.round(dayData.main.temp) + "°";
+
+                const weatherCondition = dayData.weather[0].main;
+                applyBackground(weatherCondition, dayOfWeek);
+              } else {
+                console.error(
+                  `${dayOfWeek.toLowerCase()} .panel-main-temp sınıfı bulunamadı`
+                );
+              }
+            }
+          });
+      }
+
+      function applyBackground(weatherCondition, dayOfWeek) {
+        const dayElement = document.querySelector(
+          `.${dayOfWeek.toLowerCase()}`
+        );
+        if (!dayElement) {
+          console.error(`${dayOfWeek.toLowerCase()} sınıfı bulunamadı`);
+          return;
+        }
+
+        const imageUrl = `./images/${weatherCondition.toLowerCase()}.jpeg`;
+
+        dayElement.style.background = `url(${imageUrl})`;
+        dayElement.style.backgroundSize = "cover";
+        dayElement.style.backgroundPosition = "center";
+      }
+
+      const apiKey = "393dd6b1dc1f3a2518404e3a0865203f";
+      const apiUrl =
+        "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+      const searchBox = document.querySelector(".search-input");
+      const searchBtn = document.querySelector(".search-button");
+      const weatherBg = document.querySelector(".daily-panel-main");
+
+      async function checkWeather(city) {
+        try {
+          const response = await fetch(`${apiUrl}${city}&appid=${apiKey}`);
+          const data = await response.json();
+
+          if (response.ok) {
+            console.log(data);
+            document.querySelector(" .city").innerHTML = data.name;
+            document.querySelector("  .temp").innerHTML =
+              Math.round(data.main.temp) + "°";
+            document.querySelector("  .wind-info").innerHTML =
+              data.wind.speed + " km/h";
+            document.querySelector(" .hum-info").innerHTML =
+              data.main.humidity + " %";
+            document.querySelector(".temp-name").innerHTML =
+              data.weather[0].main;
+
+            if (data.weather[0].main == "Clouds") {
+              setWeatherBackground("./images/clouds.jpeg");
+            } else if (data.weather[0].main == "Clear") {
+              setWeatherBackground("./images/clear.jpeg");
+            } else if (data.weather[0].main == "Rain") {
+              setWeatherBackground("./images/rain.jpeg");
+            } else if (data.weather[0].main == "Drizzle") {
+              setWeatherBackground("./images/drizzle.jpeg");
+            } else if (data.weather[0].main == "Fog") {
+              setWeatherBackground("./images/mist.jpeg");
+            } else if (data.weather[0].main == "Snow") {
+              setWeatherBackground("./images/snow.jpeg");
+            }
+            return data;
+          } else {
+            console.error(
+              `Hava durumu bilgileri alınamadı. API Hatası: ${response.status}`
+            );
+            return null;
+          }
+        } catch (error) {
+          console.error("Hava durumu getirilirken bir hata oluştu:", error);
+          return null;
+        }
+      }
+
+      async function fetchDataForCities() {
+        const ankaraData = await checkWeather("Ankara");
+        const istanbulData = await checkWeather("Istanbul");
+
+        if (ankaraData) {
+          console.log(ankaraData);
+          document.querySelector(".cities-name").innerHTML = ankaraData.name;
+          document.querySelector(".cities-temp").innerHTML =
+            Math.round(ankaraData.main.temp) + "°";
+          document.querySelector(".cities-wind-info").innerHTML =
+            Math.round(ankaraData.wind.speed) + " km/h";
+          document.querySelector(".cities-hum-info").innerHTML =
+            ankaraData.main.humidity + " %";
+        } else {
+          console.log("Alınamadı");
+        }
+        if (istanbulData) {
+          console.log(istanbulData);
+          document.querySelector(".cities-name2").innerHTML = istanbulData.name;
+          document.querySelector(".cities-temp2").innerHTML =
+            Math.round(istanbulData.main.temp) + "°";
+          document.querySelector(".cities-wind-info2").innerHTML =
+            Math.round(istanbulData.wind.speed) + " km/h";
+          document.querySelector(".cities-hum-info2").innerHTML =
+            istanbulData.main.humidity + " %";
+        }
+      }
+      fetchDataForCities();
+      document.addEventListener("DOMContentLoaded", () => {
+        getPublicIp();
+      });
+
+      searchBtn.addEventListener("click", () => {
+        checkWeather(searchBox.value);
+        checkWeeklyWeather(searchBox.value);
+        checkAirQuality(searchBox.value);
+      });
+    </script>
+
+    <script>
+      function createWeatherChart() {
+        const dataValue = [9, 12, 14, 8];
+        const labels = ["Morning", "Afternoon", "Evening", "Night"];
+
+        Chart.defaults.plugins.legend.display = false;
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              data: dataValue,
+              borderColor: "orange",
+              tension: 0.4,
+              borderWidth: 2,
+              pointRadius: 5,
+              pointLabels: {
+                display: true,
+                font: {
+                  size: 15,
+                  family: '"Rubik", sans-serif',
+                },
+                formatter: (value) => value + "°",
+              },
+            },
+          ],
+        };
+
+        const config = {
+          type: "line",
+          data,
+          options: {
+            scales: {
+              x: {
+                display: true,
+                grid: {
+                  display: false,
+                },
+              },
+              y: {
+                display: false,
+              },
+            },
+            layout: {
+              padding: {
+                left: 30,
+                right: 100,
+                top: 50,
+                bottom: 50,
+              },
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: (context) => {
+                    return context.dataset.data[context.dataIndex] + "°";
+                  },
+                },
+              },
+              legend: {
+                display: false,
+              },
+            },
+          },
+        };
+
+        var myChart = new Chart(document.getElementById("myChart"), config);
+      }
+
+      createWeatherChart();
+
+      function modeToggle() {
+        let lightToggle = document.querySelector(".light");
+        let darkToggle = document.querySelector(".dark");
+        let lightIcon = document.querySelector(".gg-sun");
+        let darkIcon = document.querySelector(".gg-moon");
+        let dark = document.querySelector(".dark");
+        let light = document.querySelector(".light");
+        let leftContainer = document.querySelector(".container-left");
+        let rightContainer = document.querySelector(".container-right");
+        let textColors = document.querySelectorAll(".text-color");
+
+        dark.addEventListener("click", () => {
+          leftContainer.classList.toggle("dark-mode-left");
+          rightContainer.classList.toggle("dark-mode-right");
+          darkToggle.classList.toggle("dark-active");
+          lightToggle.classList.toggle("light-active");
+          lightIcon.style.color = "rgb(215, 224, 234)";
+          darkIcon.style.color = "white";
+          textColors.forEach((textColor) => {
+            textColor.style.color = "white";
+          });
+        });
+
+        light.addEventListener("click", () => {
+          leftContainer.classList.toggle("dark-mode-left");
+          rightContainer.classList.toggle("dark-mode-right");
+          darkToggle.classList.toggle("dark-active");
+          lightToggle.classList.toggle("light-active");
+          lightIcon.style.color = "white";
+          darkIcon.style.color = "rgb(215, 224, 234)";
+          textColors.forEach((textColor) => {
+            textColor.style.color = "#32305f";
+          });
+        });
+      }
+      modeToggle();
+
+      function dateAbout() {
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+
+        var days = [
+          "Pazar",
+          "Pazartesi",
+          "Salı",
+          "Çarşamba",
+          "Perşembe",
+          "Cuma",
+          "Cumartesi",
+        ];
+
+        var months = [
+          "Ocak",
+          "Şubat",
+          "Mart",
+          "Nisan",
+          "Mayıs",
+          "Haziran",
+          "Temmuz",
+          "Ağustos",
+          "Eylül",
+          "Ekim",
+          "Kasım",
+          "Aralık",
+        ];
+
+        var dayNumber = date.getDay();
+        var dayName = days[dayNumber];
+        var dateName = date.getDate();
+        var month = date.getMonth();
+        var monthName = months[month];
+        var year = date.getFullYear();
+
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+
+        if (5 < hours && hours < 12) {
+          document.querySelector(".time-greeting").innerHTML = "Good Morning!";
+        } else if (12 < hours && hours < 18) {
+          document.querySelector(".time-greeting").innerHTML =
+            "Good Afternoon!";
+        } else {
+          document.querySelector(".time-greeting").innerHTML = "Good Night!";
+          document.querySelector(".user-greeting i").classList.remove("gg-sun");
+          document.querySelector(".user-greeting i").classList.add("gg-moon");
+        }
+
+        document.querySelector("#time").innerHTML = hours + ":" + minutes;
+
+        document.querySelector("#full-date").innerHTML =
+          dayName + ", " + dateName + " " + monthName + ", " + year;
+      }
+      setInterval(dateAbout, 1000);
+    </script>
+  </body>
+</html>
